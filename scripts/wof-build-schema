@@ -1,0 +1,34 @@
+#!/usr/bin/env python
+# -*-python-*-
+
+import logging
+import sys
+import os.path
+import whosonfirst.schema.build
+
+if __name__ == '__main__':
+    import optparse
+
+    opt_parser = optparse.OptionParser("""wof-build-schema --options /path/to/whosonfirst-properties""")
+    opt_parser.add_option('-o', '--output', dest='output', action='store', help='Write JSON schema to this file (default is stdout)')
+    opt_parser.add_option('-p', '--precision', dest='precision', action='store', default=None, help='Trim coordinates to this many decimal places (default is None)')
+    opt_parser.add_option('--verbose', dest='verbose', action='store_true', default=False, help='Be chatty (default is false)')
+
+    options, args = opt_parser.parse_args()
+
+    if not args:
+        opt_parser.print_help()
+
+    if options.verbose:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
+
+    builder = whosonfirst.schema.build.PropertiesBuilder()
+
+    fh = sys.stdout
+    if options.output:
+        fh = open(options.output, 'w')
+
+    for path in args:
+        builder.encode_properties(path, fh)

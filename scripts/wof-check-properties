@@ -1,0 +1,32 @@
+#!/usr/bin/env python
+# -*-python-*-
+
+import logging
+import sys
+import os.path
+import whosonfirst.schema.check
+
+if __name__ == '__main__':
+    import optparse
+
+    opt_parser = optparse.OptionParser("""wof-check-properties --options /path/to/whosonfirst-properties""")
+    opt_parser.add_option('-d', '--data-type', dest='datatype', action='store', help='Add a specified data type to properties missing the \'type\' attribute')
+    opt_parser.add_option('--verbose', dest='verbose', action='store_true', default=False, help='Be chatty (default is false)')
+
+    options, args = opt_parser.parse_args()
+
+    if not args:
+        opt_parser.print_help()
+
+    if options.verbose:
+        logging.basicConfig(level=logging.DEBUG)
+    else:
+        logging.basicConfig(level=logging.INFO)
+
+    checker = whosonfirst.schema.check.PropertiesChecker()
+
+    for path in args:
+        stats = checker.check_properties(path, options)
+        if stats:
+            for key, value in stats.iteritems():
+                print('{}: {} properties found'.format(key, value))
