@@ -21,7 +21,11 @@ $ deactivate
 
 ## Usage
 
-## Helper Scripts
+Autogenerate `whosonfirst-json-schema/schema/properties.json` from `whosonfirst-properties`.
+
+```
+$ ./scripts/wof-build-schema /path/to/whosonfirst-properties > /path/to/whosonfirst-json-schema/schema/properties.json
+```
 
 ## See also
 
