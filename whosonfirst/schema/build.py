@@ -20,7 +20,8 @@ class PropertiesBuilder(object):
             'float': 'number',
             'string': 'string',
             'dictionary': 'object',
-            'list': 'array'
+            'list': 'array',
+            'null': 'null'
         }
         self.template = OrderedDict()
         self.template['$schema']  = 'http://json-schema.org/draft-06/schema#'
@@ -58,7 +59,15 @@ class PropertiesBuilder(object):
                     if not doc['type']:
                         doc['type'] = 'string'
 
-                    doc['type'] = self.types[doc['type']]
+                    if isinstance(doc['type'], list):
+                        types = []
+                        for t in doc['type']:
+                            types.append(self.types[t])
+
+                        doc['type'] = types
+
+                    else:
+                        doc['type'] = self.types[doc['type']]
 
                     key = '{}:{}'.format(prefix, doc['name'])
                     prop_def = OrderedDict()
@@ -75,7 +84,7 @@ class PropertiesBuilder(object):
 
                         if 'properties' in doc:
                             prop_def['properties'] = doc['properties']
-                            
+
                     if 'patterns' in doc and 'value' in doc['patterns']:
                         prop_def['pattern'] = doc['patterns']['value']
 
