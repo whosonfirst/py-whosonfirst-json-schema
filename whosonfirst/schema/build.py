@@ -77,6 +77,8 @@ class PropertiesBuilder(object):
                         prop_def['items'] = doc['items']
                         if 'type' in prop_def['items']:
                             prop_def['items']['type'] = self.types[prop_def['items']['type']]
+                            if 'patterns' in doc and 'value' in doc['patterns']:
+                                prop_def['items']['pattern'] = doc['patterns']['value']
 
                     if doc['type'] == 'object':
                         if 'additionalProperties' in doc:
@@ -85,7 +87,7 @@ class PropertiesBuilder(object):
                         if 'properties' in doc:
                             prop_def['properties'] = doc['properties']
 
-                    if 'patterns' in doc and 'value' in doc['patterns']:
+                    if 'patterns' in doc and 'value' in doc['patterns'] and doc['type'] != 'array':
                         prop_def['pattern'] = doc['patterns']['value']
 
 
