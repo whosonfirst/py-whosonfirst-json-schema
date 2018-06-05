@@ -25,7 +25,7 @@ class PropertiesBuilder(object):
         }
         self.template = OrderedDict()
         self.template['$schema']  = 'http://json-schema.org/draft-06/schema#'
-        self.template['$id'] = 'properties.json'
+        self.template['$id'] = 'wof-properties.json'
         self.template['definitions'] = OrderedDict()
         self.template['definitions']['properties'] = OrderedDict()
         self.template['definitions']['properties']['description'] = 'The properties that can exist in a WOF document'

@@ -21,10 +21,10 @@ $ deactivate
 
 ## Usage
 
-Autogenerate `whosonfirst-json-schema/schema/properties.json` from `whosonfirst-properties`.
+Autogenerate `whosonfirst-json-schema/schema/docs/wof-properties.json` from `whosonfirst-properties`.
 
 ```
-$ ./scripts/wof-build-schema /path/to/whosonfirst-properties > /path/to/whosonfirst-json-schema/schema/properties.json
+$ ./scripts/wof-build-schema /path/to/whosonfirst-properties > /path/to/whosonfirst-json-schema/schema/docs/wof-properties.json
 ```
 
 ## See also
